@@ -1,0 +1,572 @@
+﻿/*--------------------------------------------------------------------------
+    Name / Date:  
+    Ralph(Kuangyi) Zhang / 2018-01-20
+    File：
+    JokeLog.txt
+    
+    Concatenation of outputs from all five windows.
+
+    Starting command:
+    shell window 1: > java JokeServer
+    shell window 2: > java JokeServer secondary
+    shell window 3: > java JokeClient localhost localhost
+    shell window 4: > java JokeClient localhost localhost
+    shell window 5: > java JokeClientAdmin localhost localhost
+    
+    There are four parts of executions:
+    PART A: run one server with one client, get eight jokes and eight proverbs
+            showing they are given randomly and not repeated until all four.
+    PART B: run a adminstration client to interleave Joke/Proverb Mode, showing
+            client can maintain its state across mode changes.
+    PART C: run a adminstration client to interleave mode for two clients, showing
+            each client can maintain state independently across mode changes.
+    PART D: run a adminstration client to interleave mode in two servers, while
+            client switches connection between two servers to get jokes/proverbs,
+            showing client conversation between each server is independent.  
+    Every part of execution has output parallel in different windows.
+            
+    Noted that comments/annotations are added in Java comment form ("//" or "/**/"),
+    i.e., they are not outputs of the program.
+----------------------------------------------------------------------------*/
+
+/**
+ * JokeServer (Primary)
+ */
+//Welcome Information
+Ralph Zhang's Joke Server beta starting up.
+Starting first server.
+Listening to Client at port 4545.
+Listening to ClientAdmin at port 5050.
+Getting into the ModeServer thread.
+
+//PART A
+//Send 8 jokes to client in random order, C->A->B->D (cycle complete), A->B->C->D (cycle complete)
+Receiving request from client Ralph.
+Sending JC to Client Ralph.
+Receiving request from client Ralph.
+Sending JA to Client Ralph.
+Receiving request from client Ralph.
+Sending JB to Client Ralph.
+Receiving request from client Ralph.
+Sending JD to Client Ralph.
+Receiving request from client Ralph.
+Sending JA to Client Ralph.
+Receiving request from client Ralph.
+Sending JB to Client Ralph.
+Receiving request from client Ralph.
+Sending JC to Client Ralph.
+Receiving request from client Ralph.
+Sending JD to Client Ralph.
+
+//Send 8 proverbs to client in random order, D->B->A->C (cycle complete), C->D->A->B (cycle complete)
+Server has been switched to Proverb Mode.
+Receiving request from client Ralph.
+Sending PD to Client Ralph.
+Receiving request from client Ralph.
+Sending PB to Client Ralph.
+Receiving request from client Ralph.
+Sending PA to Client Ralph.
+Receiving request from client Ralph.
+Sending PC to Client Ralph.
+Receiving request from client Ralph.
+Sending PC to Client Ralph.
+Receiving request from client Ralph.
+Sending PD to Client Ralph.
+Receiving request from client Ralph.
+Sending PA to Client Ralph.
+Receiving request from client Ralph.
+Sending PB to Client Ralph.
+
+//PART B
+//Send 8 jokes and 8 proverbs to client with a ClientAdmin interleaving Joke/Proverb Mode
+//Sequence: JB->JA->PD->PA->JD->JC->PB->PC->JD->JC->PC->PD->JB->JA->PB->PA
+//For jokes: JB->JA->JD->JC(cycle complete)->JD->JC->JB->JA(cycle complete)
+//For proverbs: PD->PA->PB->PC(cycle complete)->PC->PD->PB->PA(cycle complete)
+Server has been switched to Joke Mode.
+Receiving request from client Ralph.
+Sending JB to Client Ralph.
+Receiving request from client Ralph.
+Sending JA to Client Ralph.
+Server has been switched to Proverb Mode.
+Receiving request from client Ralph.
+Sending PD to Client Ralph.
+Receiving request from client Ralph.
+Sending PA to Client Ralph.
+Server has been switched to Joke Mode.
+Receiving request from client Ralph.
+Sending JD to Client Ralph.
+Receiving request from client Ralph.
+Sending JC to Client Ralph.
+Server has been switched to Proverb Mode.
+Receiving request from client Ralph.
+Sending PB to Client Ralph.
+Receiving request from client Ralph.
+Sending PC to Client Ralph.
+Server has been switched to Joke Mode.
+Receiving request from client Ralph.
+Sending JD to Client Ralph.
+Receiving request from client Ralph.
+Sending JC to Client Ralph.
+Server has been switched to Proverb Mode.
+Receiving request from client Ralph.
+Sending PC to Client Ralph.
+Receiving request from client Ralph.
+Sending PD to Client Ralph.
+Server has been switched to Joke Mode.
+Receiving request from client Ralph.
+Sending JB to Client Ralph.
+Receiving request from client Ralph.
+Sending JA to Client Ralph.
+Server has been switched to Proverb Mode.
+Receiving request from client Ralph.
+Sending PB to Client Ralph.
+Receiving request from client Ralph.
+Sending PA to Client Ralph.
+
+//PART C
+//Send 4 jokes and 4 proverbs to two clients Ralph and Melva with a clientAdmin interleaving mode
+//Sequence: JD(Ralph)->JA(Ralph)->JC(Ralph)->JD(Melva)->JB(Melva)->JC(Melva)->PC(Melva)->PD(Melva)
+//          ->PB(Melva)->PC(Ralph)->PB(Ralph)->PA(Ralph)->JB(Ralph)->JA(Melva)->PA(Melva)->PD(Ralph)
+//See client output for seperate order
+Server has been switched to Joke Mode.
+Receiving request from client Ralph.
+Sending JD to Client Ralph.
+Receiving request from client Ralph.
+Sending JA to Client Ralph.
+Receiving request from client Ralph.
+Sending JC to Client Ralph.
+Receiving request from client Melva.
+Sending JD to Client Melva.
+Receiving request from client Melva.
+Sending JB to Client Melva.
+Receiving request from client Melva.
+Sending JC to Client Melva.
+Server has been switched to Proverb Mode.
+Receiving request from client Melva.
+Sending PC to Client Melva.
+Receiving request from client Melva.
+Sending PD to Client Melva.
+Receiving request from client Melva.
+Sending PB to Client Melva.
+Receiving request from client Ralph.
+Sending PC to Client Ralph.
+Receiving request from client Ralph.
+Sending PB to Client Ralph.
+Receiving request from client Ralph.
+Sending PA to Client Ralph.
+Server has been switched to Joke Mode.
+Receiving request from client Ralph.
+Sending JB to Client Ralph.
+Receiving request from client Melva.
+Sending JA to Client Melva.
+Server has been switched to Proverb Mode.
+Receiving request from client Melva.
+Sending PA to Client Melva.
+Receiving request from client Ralph.
+Sending PD to Client Ralph.
+
+//PART D
+//Send 4 jokes and 4 proverbs to client while client switches between two servers
+//Sequence: JB->JA->JC->PB->PC->PA->PD->JD
+Server has been switched to Joke Mode.
+Receiving request from client Ralph.
+Sending JB to Client Ralph.
+Receiving request from client Ralph.
+Sending JA to Client Ralph.
+Receiving request from client Ralph.
+Sending JC to Client Ralph.
+Server has been switched to Proverb Mode.
+Receiving request from client Ralph.
+Sending PB to Client Ralph.
+Receiving request from client Ralph.
+Sending PC to Client Ralph.
+Receiving request from client Ralph.
+Sending PA to Client Ralph.
+Receiving request from client Ralph.
+Sending PD to Client Ralph.
+Server has been switched to Joke Mode.
+Receiving request from client Ralph.
+Sending JD to Client Ralph.
+
+
+
+/**
+ * JokeServer (Secondary)
+ */
+//Welcome Information
+Ralph Zhang's Joke Server beta starting up.
+Starting second server.
+Listening to Client at port 4546.
+Listening to ClientAdmin at port 5051.
+Getting into the ModeServer thread.
+
+//PART D
+//Send 4 jokes and 4 proverbs to client while client switches between two servers
+//Sequence: JB->JA->JD->PC->PB->PA->PD->JC
+Receiving request from client Ralph.
+Sending JB to Client Ralph.
+Receiving request from client Ralph.
+Sending JA to Client Ralph.
+Receiving request from client Ralph.
+Sending JD to Client Ralph.
+Server has been switched to Proverb Mode.
+Receiving request from client Ralph.
+Sending PC to Client Ralph.
+Receiving request from client Ralph.
+Sending PB to Client Ralph.
+Receiving request from client Ralph.
+Sending PA to Client Ralph.
+Receiving request from client Ralph.
+Sending PD to Client Ralph.
+Server has been switched to Joke Mode.
+Receiving request from client Ralph.
+Sending JC to Client Ralph.
+
+
+
+/**
+ * JokeClient (Ralph)
+ */
+//Welcome Information 
+Ralph Zhang's Joke Client, beta.
+Server one: localhost, port 4545
+Server two: localhost, port 4546
+Please enter your username: Ralph
+
+//PART A
+//Receive 8 jokes from server, C->A->B->D (cycle complete), A->B->C->D (cycle complete)
+Press <Enter> to request a response. Input “s” to change server, “quit” to end:
+JC Ralph: Hospitality: making your guests feel like they're at home, even if you wish they were.
+
+Press <Enter> to request a response. Input “s” to change server, “quit” to end:
+JA Ralph: A bank is a place that will lend you money, if you can prove that you don't need it.
+
+Press <Enter> to request a response. Input “s” to change server, “quit” to end:
+JB Ralph: Evening news is where they begin with 'Good evening', and then proceed to tell you why it isn't.
+
+Press <Enter> to request a response. Input “s” to change server, “quit” to end:
+JD Ralph: A bus station is where a bus stops. A train station is where a train stops. On my desk, I have a work station..
+JOKE CYCLE COMPLETED
+
+Press <Enter> to request a response. Input “s” to change server, “quit” to end:
+JA Ralph: A bank is a place that will lend you money, if you can prove that you don't need it.
+
+Press <Enter> to request a response. Input “s” to change server, “quit” to end:
+JB Ralph: Evening news is where they begin with 'Good evening', and then proceed to tell you why it isn't.
+
+Press <Enter> to request a response. Input “s” to change server, “quit” to end:
+JC Ralph: Hospitality: making your guests feel like they're at home, even if you wish they were.
+
+Press <Enter> to request a response. Input “s” to change server, “quit” to end:
+JD Ralph: A bus station is where a bus stops. A train station is where a train stops. On my desk, I have a work station..
+JOKE CYCLE COMPLETED
+
+//Receive 8 proverbs from server, D->B->A->C (cycle complete), C->D->A->B (cycle complete)
+Press <Enter> to request a response. Input “s” to change server, “quit” to end:
+PD Ralph: Don't fall before you're pushed.
+
+Press <Enter> to request a response. Input “s” to change server, “quit” to end:
+PB Ralph: Before criticizing a man, walk a mile in his shoes.
+
+Press <Enter> to request a response. Input “s” to change server, “quit” to end:
+PA Ralph: Absence makes the heart grow fonder.
+
+Press <Enter> to request a response. Input “s” to change server, “quit” to end:
+PC Ralph: Common sense is not so common.
+PROVERB CYCLE COMPLETED
+
+Press <Enter> to request a response. Input “s” to change server, “quit” to end:
+PC Ralph: Common sense is not so common.
+
+Press <Enter> to request a response. Input “s” to change server, “quit” to end:
+PD Ralph: Don't fall before you're pushed.
+
+Press <Enter> to request a response. Input “s” to change server, “quit” to end:
+PA Ralph: Absence makes the heart grow fonder.
+
+Press <Enter> to request a response. Input “s” to change server, “quit” to end:
+PB Ralph: Before criticizing a man, walk a mile in his shoes.
+PROVERB CYCLE COMPLETED
+
+//PART B
+//Receive 8 jokes and 8 proverbs from server with a adminstration client interleaving Joke/Proverb Mode
+//Sequence: JB->JA->PD->PA->JD->JC->PB->PC->JD->JC->PC->PD->JB->JA->PB->PA
+//For jokes: JB->JA->JD->JC(cycle complete)->JD->JC->JB->JA(cycle complete)
+//For proverbs: PD->PA->PB->PC(cycle complete)->PC->PD->PB->PA(cycle complete)
+Press <Enter> to request a response. Input “s” to change server, “quit” to end:
+JB Ralph: Evening news is where they begin with 'Good evening', and then proceed to tell you why it isn't.
+
+Press <Enter> to request a response. Input “s” to change server, “quit” to end:
+JA Ralph: A bank is a place that will lend you money, if you can prove that you don't need it.
+
+Press <Enter> to request a response. Input “s” to change server, “quit” to end:
+PD Ralph: Don't fall before you're pushed.
+
+Press <Enter> to request a response. Input “s” to change server, “quit” to end:
+PA Ralph: Absence makes the heart grow fonder.
+
+Press <Enter> to request a response. Input “s” to change server, “quit” to end:
+JD Ralph: A bus station is where a bus stops. A train station is where a train stops. On my desk, I have a work station..
+
+Press <Enter> to request a response. Input “s” to change server, “quit” to end:
+JC Ralph: Hospitality: making your guests feel like they're at home, even if you wish they were.
+JOKE CYCLE COMPLETED
+
+Press <Enter> to request a response. Input “s” to change server, “quit” to end:
+PB Ralph: Before criticizing a man, walk a mile in his shoes.
+
+Press <Enter> to request a response. Input “s” to change server, “quit” to end:
+PC Ralph: Common sense is not so common.
+PROVERB CYCLE COMPLETED
+
+Press <Enter> to request a response. Input “s” to change server, “quit” to end:
+JD Ralph: A bus station is where a bus stops. A train station is where a train stops. On my desk, I have a work station..
+
+Press <Enter> to request a response. Input “s” to change server, “quit” to end:
+JC Ralph: Hospitality: making your guests feel like they're at home, even if you wish they were.
+
+Press <Enter> to request a response. Input “s” to change server, “quit” to end:
+PC Ralph: Common sense is not so common.
+
+Press <Enter> to request a response. Input “s” to change server, “quit” to end:
+PD Ralph: Don't fall before you're pushed.
+
+Press <Enter> to request a response. Input “s” to change server, “quit” to end:
+JB Ralph: Evening news is where they begin with 'Good evening', and then proceed to tell you why it isn't.
+
+Press <Enter> to request a response. Input “s” to change server, “quit” to end:
+JA Ralph: A bank is a place that will lend you money, if you can prove that you don't need it.
+JOKE CYCLE COMPLETED
+
+Press <Enter> to request a response. Input “s” to change server, “quit” to end:
+PB Ralph: Before criticizing a man, walk a mile in his shoes.
+
+Press <Enter> to request a response. Input “s” to change server, “quit” to end:
+PA Ralph: Absence makes the heart grow fonder.
+PROVERB CYCLE COMPLETED
+
+//PART C
+//Receive 4 jokes and 4 proverbs while client Melva and clientAdmin interleaving
+//Sequence: JD->JA->JC->PC->PB->PA->JB->PD
+//For jokes JD->JA->JC->JB(cycle complete), for proverbs PC->PB->PA->PD(cycle complete)
+Press <Enter> to request a response. Input “s” to change server, “quit” to end:
+JD Ralph: A bus station is where a bus stops. A train station is where a train stops. On my desk, I have a work station..
+
+Press <Enter> to request a response. Input “s” to change server, “quit” to end:
+JA Ralph: A bank is a place that will lend you money, if you can prove that you don't need it.
+
+Press <Enter> to request a response. Input “s” to change server, “quit” to end:
+JC Ralph: Hospitality: making your guests feel like they're at home, even if you wish they were.
+
+Press <Enter> to request a response. Input “s” to change server, “quit” to end:
+PC Ralph: Common sense is not so common.
+
+Press <Enter> to request a response. Input “s” to change server, “quit” to end:
+PB Ralph: Before criticizing a man, walk a mile in his shoes.
+
+Press <Enter> to request a response. Input “s” to change server, “quit” to end:
+PA Ralph: Absence makes the heart grow fonder.
+
+Press <Enter> to request a response. Input “s” to change server, “quit” to end:
+JB Ralph: Evening news is where they begin with 'Good evening', and then proceed to tell you why it isn't.
+JOKE CYCLE COMPLETED
+
+Press <Enter> to request a response. Input “s” to change server, “quit” to end:
+PD Ralph: Don't fall before you're pushed.
+PROVERB CYCLE COMPLETED
+
+//PART D
+//Receive 4 jokes and 4 proverbs with server switch interleaving
+//Sequence: JB->JA->JC->PB->PC->PA->"s"->JB->JA->JD->PC->PB->PA->"s"->PD->JD->"s"->PD->JC
+//From primary server: JB->JA->JC->PB->PC->PA->PD->JD
+//From secondary server: JB->JA->JD->PC->PB->PA->PD->JC
+Press <Enter> to request a response. Input “s” to change server, “quit” to end:
+JB Ralph: Evening news is where they begin with 'Good evening', and then proceed to tell you why it isn't.
+
+Press <Enter> to request a response. Input “s” to change server, “quit” to end:
+JA Ralph: A bank is a place that will lend you money, if you can prove that you don't need it.
+
+Press <Enter> to request a response. Input “s” to change server, “quit” to end:
+JC Ralph: Hospitality: making your guests feel like they're at home, even if you wish they were.
+
+Press <Enter> to request a response. Input “s” to change server, “quit” to end:
+PB Ralph: Before criticizing a man, walk a mile in his shoes.
+
+Press <Enter> to request a response. Input “s” to change server, “quit” to end:
+PC Ralph: Common sense is not so common.
+
+Press <Enter> to request a response. Input “s” to change server, “quit” to end:
+PA Ralph: Absence makes the heart grow fonder.
+
+Press <Enter> to request a response. Input “s” to change server, “quit” to end: s
+Now communicating with: localhost port 4546
+
+Press <Enter> to request a response. Input “s” to change server, “quit” to end:
+<S2> JB Ralph: Evening news is where they begin with 'Good evening', and then proceed to tell you why it isn't.
+
+Press <Enter> to request a response. Input “s” to change server, “quit” to end:
+<S2> JA Ralph: A bank is a place that will lend you money, if you can prove that you don't need it.
+
+Press <Enter> to request a response. Input “s” to change server, “quit” to end:
+<S2> JD Ralph: A bus station is where a bus stops. A train station is where a train stops. On my desk, I have a work station..
+
+Press <Enter> to request a response. Input “s” to change server, “quit” to end:
+<S2> PC Ralph: Common sense is not so common.
+
+Press <Enter> to request a response. Input “s” to change server, “quit” to end:
+<S2> PB Ralph: Before criticizing a man, walk a mile in his shoes.
+
+Press <Enter> to request a response. Input “s” to change server, “quit” to end:
+<S2> PA Ralph: Absence makes the heart grow fonder.
+
+Press <Enter> to request a response. Input “s” to change server, “quit” to end: s
+Now communicating with: localhost port 4545
+
+Press <Enter> to request a response. Input “s” to change server, “quit” to end:
+PD Ralph: Don't fall before you're pushed.
+PROVERB CYCLE COMPLETED
+
+Press <Enter> to request a response. Input “s” to change server, “quit” to end:
+JD Ralph: A bus station is where a bus stops. A train station is where a train stops. On my desk, I have a work station..
+JOKE CYCLE COMPLETED
+
+Press <Enter> to request a response. Input “s” to change server, “quit” to end: s
+Now communicating with: localhost port 4546
+
+Press <Enter> to request a response. Input “s” to change server, “quit” to end:
+<S2> PD Ralph: Don't fall before you're pushed.
+<S2> PROVERB CYCLE COMPLETED
+
+Press <Enter> to request a response. Input “s” to change server, “quit” to end:
+<S2> JC Ralph: Hospitality: making your guests feel like they're at home, even if you wish they were.
+<S2> JOKE CYCLE COMPLETED
+
+
+
+/**
+ * JokeClient (Melva)
+ */
+//Welcome Information  
+Ralph Zhang's Joke Client, beta.
+Server one: localhost, port 4545
+Server two: localhost, port 4546
+Please enter your username: Melva
+
+//PART C
+//Receive 4 jokes and 4 proverbs with client Ralph and clientAdm interleaving
+//Sequence: JD->JB->JC->PC->PD->PB->JA->PA
+//For jokes JD->JB->JC->JA(cycle complete), for proverbs PC->PD->PB->PA(cycle complete)
+Press <Enter> to request a response. Input “s” to change server, “quit” to end:
+JD Melva: A bus station is where a bus stops. A train station is where a train stops. On my desk, I have a work station..
+
+Press <Enter> to request a response. Input “s” to change server, “quit” to end:
+JB Melva: Evening news is where they begin with 'Good evening', and then proceed to tell you why it isn't.
+
+Press <Enter> to request a response. Input “s” to change server, “quit” to end:
+JC Melva: Hospitality: making your guests feel like they're at home, even if you wish they were.
+
+Press <Enter> to request a response. Input “s” to change server, “quit” to end:
+PC Melva: Common sense is not so common.
+
+Press <Enter> to request a response. Input “s” to change server, “quit” to end:
+PD Melva: Don't fall before you're pushed.
+
+Press <Enter> to request a response. Input “s” to change server, “quit” to end:
+PB Melva: Before criticizing a man, walk a mile in his shoes.
+
+Press <Enter> to request a response. Input “s” to change server, “quit” to end:
+JA Melva: A bank is a place that will lend you money, if you can prove that you don't need it.
+JOKE CYCLE COMPLETED
+
+Press <Enter> to request a response. Input “s” to change server, “quit” to end:
+PA Melva: Absence makes the heart grow fonder.
+PROVERB CYCLE COMPLETED
+
+
+
+/**
+ * JokeClientAdmin
+ */
+//Welcome Information 
+Ralph Zhang's Joke ClientAdmin, beta.
+Server one: localhost, port 5050
+Server two: localhost, port 5051
+
+//PART A
+//Toggle server mode on Primary Server, when sending 8 jokes/proverbs
+//Joke mode->Proverb mode
+Press <Enter> to toggle server mode.
+Input “s” to change server, “shutdown” to shut down server, “quit” to end:
+Server 1 has been switched to Proverb Mode.
+
+//PART B
+//Toggle server mode on Primary Server, when sending 8 jokes/proverbs with ClientAdmin interleaving
+//Sequence: J->P->J->P->J->P->J->P
+Press <Enter> to toggle server mode.
+Input “s” to change server, “shutdown” to shut down server, “quit” to end:
+Server 1 has been switched to Joke Mode.
+Press <Enter> to toggle server mode.
+Input “s” to change server, “shutdown” to shut down server, “quit” to end:
+Server 1 has been switched to Proverb Mode.
+Press <Enter> to toggle server mode.
+Input “s” to change server, “shutdown” to shut down server, “quit” to end:
+Server 1 has been switched to Joke Mode.
+Press <Enter> to toggle server mode.
+Input “s” to change server, “shutdown” to shut down server, “quit” to end:
+Server 1 has been switched to Proverb Mode.
+Press <Enter> to toggle server mode.
+Input “s” to change server, “shutdown” to shut down server, “quit” to end:
+Server 1 has been switched to Joke Mode.
+Press <Enter> to toggle server mode.
+Input “s” to change server, “shutdown” to shut down server, “quit” to end:
+Server 1 has been switched to Proverb Mode.
+Press <Enter> to toggle server mode.
+Input “s” to change server, “shutdown” to shut down server, “quit” to end:
+Server 1 has been switched to Joke Mode.
+Press <Enter> to toggle server mode.
+Input “s” to change server, “shutdown” to shut down server, “quit” to end:
+Server 1 has been switched to Proverb Mode.
+
+//PART C
+//Toggle server mode on Primary server, when sending 4 jokes/proverbs to two clients with ClientAdmin interleaving
+//Sequence: J->P->J->P
+Press <Enter> to toggle server mode.
+Input “s” to change server, “shutdown” to shut down server, “quit” to end:
+Server 1 has been switched to Joke Mode.
+Press <Enter> to toggle server mode.
+Input “s” to change server, “shutdown” to shut down server, “quit” to end:
+Server 1 has been switched to Proverb Mode.
+Press <Enter> to toggle server mode.
+Input “s” to change server, “shutdown” to shut down server, “quit” to end:
+Server 1 has been switched to Joke Mode.
+Press <Enter> to toggle server mode.
+Input “s” to change server, “shutdown” to shut down server, “quit” to end:
+Server 1 has been switched to Proverb Mode.
+
+//PART D
+//Toggle server mode on primary(s1)/secondary(s2) server, when sending 4 jokes/proverbs to client
+//Sequence: J(s1)->P(s1)->"s"->P(s2)->"s"->J(s1)->"s"->J(s2)
+Press <Enter> to toggle server mode.
+Input “s” to change server, “shutdown” to shut down server, “quit” to end:
+Server 1 has been switched to Joke Mode.
+Press <Enter> to toggle server mode.
+Input “s” to change server, “shutdown” to shut down server, “quit” to end:
+Server 1 has been switched to Proverb Mode.
+Press <Enter> to toggle server mode.
+Input “s” to change server, “shutdown” to shut down server, “quit” to end: s
+Now communicating with: localhost port 5051
+Press <Enter> to toggle server mode.
+Input “s” to change server, “shutdown” to shut down server, “quit” to end:
+Server 2 has been switched to Proverb Mode.
+Press <Enter> to toggle server mode.
+Input “s” to change server, “shutdown” to shut down server, “quit” to end: s
+Now communicating with: localhost port 5050
+Press <Enter> to toggle server mode.
+Input “s” to change server, “shutdown” to shut down server, “quit” to end:
+Server 1 has been switched to Joke Mode.
+Press <Enter> to toggle server mode.
+Input “s” to change server, “shutdown” to shut down server, “quit” to end: s
+Now communicating with: localhost port 5051
+Press <Enter> to toggle server mode.
+Input “s” to change server, “shutdown” to shut down server, “quit” to end:
+Server 2 has been switched to Joke Mode.
