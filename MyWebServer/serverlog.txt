@@ -1,0 +1,119 @@
+﻿/**
+ * Name / Date:  
+ *  Ralph / 2018-02-03
+ *  File：
+ *  serverlog.txt
+ *
+ *
+ * Directory layout for MyWebserver:
+ *
+ *  MyWebServer.java
+ *  MyWebServer.class
+ *  Worker.class
+ *  dog.txt
+ *  cat.html
+ *  /sub-a
+ *    /sub-b
+ *      Nemo.txt
+ *
+ **/
+
+//Start server
+>java MyWebServer
+Ralph Zhang's WebServer is running at port 2540.
+
+//Input URL: http://localhost:2540/dog.txt
+Receiving a request from browser.
+GET /dog.txt HTTP/1.1
+Host:localhost:2540
+
+Sending a response to browser:
+HTTP/1.1 200 OK
+Content-Length: 48
+Connection: close
+Content-Type: text/plain
+Date: Sat Feb 03 17:18:39 CST 2018
+Server: MyWebServer 1.0
+
+
+//Input URL: http://localhost:2540/
+Receiving a request from browser.
+GET / HTTP/1.1
+Host: localhost:2540
+User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:58.0) Gecko/20100101 Firefox/58.0
+Accept: text/html,application/xhtml+xml,application/xml;q=0.9,*/*;q=0.8
+Accept-Language: en-US,en;q=0.5
+Accept-Encoding: gzip, deflate
+Connection: keep-alive
+Upgrade-Insecure-Requests: 1
+
+Response sent to browser:
+HTTP/1.1 200 OK
+Content-Length: 524
+Connection: close
+Content-Type: text/html
+Date: Sat Feb 03 21:45:42 CST 2018
+Server: MyWebServer 1.0
+
+
+//Click "sub-a" on above diretory page (input URL: http://localhost:2540/sub-a)
+Receiving a request from browser.
+GET /sub-a HTTP/1.1
+Host: localhost:2540
+User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:58.0) Gecko/20100101 Firefox/58.0
+Accept: text/html,application/xhtml+xml,application/xml;q=0.9,*/*;q=0.8
+Accept-Language: en-US,en;q=0.5
+Accept-Encoding: gzip, deflate
+Referer: http://localhost:2540/
+Connection: keep-alive
+Upgrade-Insecure-Requests: 1
+
+Response sent to browser:
+HTTP/1.1 200 OK
+Content-Length: 161
+Connection: close
+Content-Type: text/html
+Date: Sat Feb 03 21:45:50 CST 2018
+Server: MyWebServer 1.0
+
+
+//Click "sub-b" on above diretory page (input URL: http://localhost:2540/sub-a/sub-b)
+Receiving a request from browser.
+GET /sub-a/sub-b HTTP/1.1
+Host: localhost:2540
+User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:58.0) Gecko/20100101 Firefox/58.0
+Accept: text/html,application/xhtml+xml,application/xml;q=0.9,*/*;q=0.8
+Accept-Language: en-US,en;q=0.5
+Accept-Encoding: gzip, deflate
+Referer: http://localhost:2540/sub-a
+Connection: keep-alive
+Upgrade-Insecure-Requests: 1
+
+Response sent to browser:
+HTTP/1.1 200 OK
+Content-Length: 174
+Connection: close
+Content-Type: text/html
+Date: Sat Feb 03 21:45:52 CST 2018
+Server: MyWebServer 1.0
+
+
+//Click "Nemo.txt" on above diretory page (input URL: http://localhost:2540/sub-a/sub-b/Nemo.txt)
+Receiving a request from browser.
+GET /sub-a/sub-b/Nemo.txt HTTP/1.1
+Host: localhost:2540
+User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:58.0) Gecko/20100101 Firefox/58.0
+Accept: text/html,application/xhtml+xml,application/xml;q=0.9,*/*;q=0.8
+Accept-Language: en-US,en;q=0.5
+Accept-Encoding: gzip, deflate
+Referer: http://localhost:2540/sub-a/sub-b
+Connection: keep-alive
+Upgrade-Insecure-Requests: 1
+
+Sending a response to browser:
+HTTP/1.1 200 OK
+Content-Length: 37
+Connection: close
+Content-Type: text/plain
+Date: Sat Feb 03 21:45:54 CST 2018
+Server: MyWebServer 1.0

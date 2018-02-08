@@ -1,0 +1,95 @@
+﻿/**
+ * Name / Date:  
+ *  Ralph / 2018-02-03
+ *  File：
+ *  serverlog.txt
+ *
+ *
+ *
+ *  Part 1:
+ *  Retrieve "dog.txt" file from my home web directory. 
+ */
+//Sending a manual request in MyTelnetClient
+>java MyTelnetClient
+Raph Zhang's MyTelnet Client starts, 1.0.
+
+Connecting to server: localhost, port: 2540
+Enter text to be sent to server, type in <stop> at end: GET /dog.txt HTTP/1.1
+Enter text to be sent to server, type in <stop> at end: Host:localhost:2540
+Enter text to be sent to server, type in <stop> at end:
+Enter text to be sent to server, type in <stop> at end:
+Enter text to be sent to server, type in <stop> at end: stop
+HTTP/1.1 200 OK
+Content-Length: 48
+Connection: close
+Content-Type: text/plain
+Date: Sat Feb 03 17:18:39 CST 2018
+Server: MyWebServer 1.0
+
+This is Elliott's dog file on condor. Good job!
+
+//Console output of MyWebServer(MyListener)
+>java MyWebServer
+Ralph Zhang's WebServer is running at port 2540.
+
+Receiving a request from browser.
+GET /dog.txt HTTP/1.1
+Host:localhost:2540
+
+Sending a response to browser:
+HTTP/1.1 200 OK
+Content-Length: 48
+Connection: close
+Content-Type: text/plain
+Date: Sat Feb 03 17:18:39 CST 2018
+Server: MyWebServer 1.0
+
+/**
+ *  Part 2: 
+ *  Retrieve "cat.html" file from my home web directory. 
+ */
+//Sending a manual request in MyTelnetClient
+>java MyTelnetClient
+Raph Zhang's MyTelnet Client starts, 1.0.
+
+Connecting to server: localhost, port: 2540
+Enter text to be sent to server, type in <stop> at end: GET /cat.html HTTP/1.1
+Enter text to be sent to server, type in <stop> at end: Host:localhost:2540
+Enter text to be sent to server, type in <stop> at end:
+Enter text to be sent to server, type in <stop> at end:
+Enter text to be sent to server, type in <stop> at end: stop
+HTTP/1.1 200 OK
+Content-Length: 280
+Connection: close
+Content-Type: text/html
+Date: Sat Feb 03 17:20:39 CST 2018
+Server: MyWebServer 1.0
+
+
+<!-- saved from url=(0041)http://condor.depaul.edu/elliott/cat.html -->
+<html><head><meta http-equiv="Content-Type" content="text/html; charset=windows-1252"></head><body>
+<center>
+
+<h1> This is Elliott's </h1>
+
+<h1>  CAT </h1>
+
+<h1> html file </h1>
+
+</center>
+
+//Console output of MyWebServer(MyListener)
+>java MyWebServer
+Ralph Zhang's WebServer is running at port 2540.
+
+Receiving a request from browser.
+GET /cat.html HTTP/1.1
+Host:localhost:2540
+
+Sending a response to browser:
+HTTP/1.1 200 OK
+Content-Length: 280
+Connection: close
+Content-Type: text/html
+Date: Sat Feb 03 17:20:39 CST 2018
+Server: MyWebServer 1.0
