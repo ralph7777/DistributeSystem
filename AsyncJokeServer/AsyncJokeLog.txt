@@ -1,0 +1,102 @@
+/*--------------------------------------------------------------------------
+    Name / Date:  
+    Ralph / 2018-02-26
+    File：
+    AsyncJokeLog.txt
+    
+    Concatenation of outputs from all four windows.
+
+    Starting command:
+    shell window 1: > java AsyncJokeServer
+    shell window 2: > java AsyncJokeServer 3246
+    shell window 3: > java AsyncJokeClient 3245 3246
+    shell window 4: > java AsyncJokeClientAdmin 5245 5246
+    
+    Noted that comments/annotations are added in Java comment form ("//" or "/**/"),
+    i.e., they are not outputs of the program.
+----------------------------------------------------------------------------*/
+
+//window 1
+Ralph Zhang's Asynchronous Joke Server started up.
+Starting server A
+Listening to Client at port 3245.
+Listening to ClientAdmin at port 5245.
+Getting into the ModeServer thread.
+Receiving request from client.
+Receiving request from client.
+Sending JC to client.
+Sending JB to client.
+Server has been switched to Proverb Mode.
+Receiving request from client.
+Sending PD to client.
+
+
+//window 2
+Ralph Zhang's Asynchronous Joke Server started up.
+Starting server B
+Listening to Client at port 3246.
+Listening to ClientAdmin at port 5246.
+Getting into the ModeServer thread.
+Receiving request from client.
+Sending JA to client.
+Receiving request from client.
+Sending JC to client.
+
+
+//windows 3
+Ralph Zhang's Asynchronous Joke Client started with bindings:
+Server A at 3245
+Server B at 3246
+
+Enter A or B to get a joke or proverb, or numbers for sum, quit to end: A
+
+Enter A or B to get a joke or proverb, or numbers for sum, quit to end: A
+
+Enter A or B to get a joke or proverb, or numbers for sum, quit to end: B
+
+Enter A or B to get a joke or proverb, or numbers for sum, quit to end: 2 3
+Your sum is: 5
+
+Enter A or B to get a joke or proverb, or numbers for sum, quit to end: 1 4
+Your sum is: 5
+
+Server A responds: [Joke C] Hospitality: making your guests feel like they're at home, even if you wish they were.
+
+Enter A or B to get a joke or proverb, or numbers for sum, quit to end: 4 2
+Your sum is: 6
+
+Server A responds: [Joke B] Evening news is where they begin with 'Good evening', and then proceed to tell you why it isn't.
+
+Enter A or B to get a joke or proverb, or numbers for sum, quit to end: 3 2
+Your sum is: 5
+
+Server B responds: [Joke A] A bank is a place that will lend you money, if you can prove that you don't need it.
+
+//Switch Server A to Proverb Mode in window 4
+
+Enter A or B to get a joke or proverb, or numbers for sum, quit to end: A
+
+Enter A or B to get a joke or proverb, or numbers for sum, quit to end: 2 2
+Your sum is: 4
+
+Enter A or B to get a joke or proverb, or numbers for sum, quit to end: B
+
+Server A responds: [Proverb D] Don't fall before you're pushed.
+
+Enter A or B to get a joke or proverb, or numbers for sum, quit to end: 4 4
+Your sum is: 8
+
+Server B responds: [Joke C] Hospitality: making your guests feel like they're at home, even if you wish they were.
+
+Enter A or B to get a joke or proverb, or numbers for sum, quit to end:
+
+
+//window 4
+Ralph Zhang's Asynchronous Joke ClientAdmin started up.
+Server A at port 5245
+Server B at port 5246
+Press <Enter> to toggle server mode.
+Input “s” to change server, “shutdown” to shut down server, “quit” to end:
+Server A has been switched to Proverb Mode.
+Press <Enter> to toggle server mode.
+Input “s” to change server, “shutdown” to shut down server, “quit” to end:
